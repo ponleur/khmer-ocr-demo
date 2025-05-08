@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Khmer OCR Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 2em auto;
+            text-align: center;
+        }
+
+        #filepicker {
+            margin-bottom: 1em;
+        }
+
+        #preview {
+            display: none;
+            border: 1px solid #ccc;
+            max-width: 100%;
+            margin-bottom: 1em;
+        }
+
+        #status {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 1em;
+        }
+
+        #canvas {
+            display: none;
+            /* hidden, used only for preprocessing */
+        }
+
+        #samples {
+            display: flex;
+            gap: 0.5em;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+
+        .sample {
+            width: 100px;
+            /* thumbnail size */
+            height: auto;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .sample:hover {
+            border-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Khmer OCR Demo</h1>
+
+    <!-- file input -->
+    <input type="file" id="filepicker" accept="image/*" /><br />
+
+    <!-- sample thumbnails -->
+    <h2>Try a Sample Line:</h2>
+    <div id="samples">
+        <img class="sample" src="samples/line1.png" alt="Sample 1" />
+        <img class="sample" src="samples/line2.png" alt="Sample 2" />
+        <img class="sample" src="samples/line3.png" alt="Sample 3" />
+        <img class="sample" src="samples/line4.png" alt="Sample 4" />
+        <img class="sample" src="samples/line5.png" alt="Sample 5" />
+        <img class="sample" src="samples/line6.png" alt="Sample 6" />
+        <img class="sample" src="samples/line7.png" alt="Sample 7" />
+        <img class="sample" src="samples/line8.png" alt="Sample 8" />
+        <img class="sample" src="samples/line9.png" alt="Sample 9" />
+    </div>
+
+    <!-- status & preview -->
+    <div id="status">⏳ Waiting for model to load…</div>
+    <img id="preview" alt="Image preview for OCR" />
+
+    <!-- result display -->
+    <p>Recognized Text: <strong><span id="result">–</span></strong></p>
+
+    <!-- hidden canvas for preprocessing -->
+    <canvas id="canvas" width="128" height="32"></canvas>
+
+    <!-- 1) ONNX Runtime Web UMD bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script>
+        // tell ORT where to load its WASM worker from
+        ort.env.wasm.wasmPaths = [
+            "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort-wasm-simd-threaded.wasm"
+        ];
+    </script>
+
+    <!-- 2) your character map and app logic -->
+    <script type="module" src="vocab.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
