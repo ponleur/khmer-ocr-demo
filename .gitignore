@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+venv310/
+.env/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Your raw 74 MB model—we only commit the quantized one under webapp/
+model/crnn.onnx
+
+# Node (if you ever add any JS deps)
+node_modules/
+
+# Cloudflare Wrangler files
+wrangler.toml
