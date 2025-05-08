@@ -12,7 +12,7 @@ let session = null;
 
 // 1) Load ONNX model
 status.innerText = "🔄 Loading ONNX model…";
-ort.InferenceSession.create("crnn.onnx")
+ort.InferenceSession.create( "https://cdn.jsdelivr.net/gh/ponleur/khmer-ocr-demo@main/model/crnn.onnx")
     .then(s => {
         session = s;
         status.innerText = "✅ Model loaded! Select an image.";
